@@ -1,4 +1,4 @@
-package com.dream;
+package com.springboot;
 
 /**
  * Hello world!
