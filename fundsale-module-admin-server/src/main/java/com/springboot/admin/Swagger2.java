@@ -1,4 +1,4 @@
-package com.springboot;
+package com.springboot.admin;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class Swagger2 {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.springboot.controller"))   //为当前包路径
+                .apis(RequestHandlerSelectors.basePackage("com.springboot.admin.controller"))   //为当前包路径
                 .paths(PathSelectors.any())
                 .build();
     }

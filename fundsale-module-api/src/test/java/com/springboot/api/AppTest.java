@@ -1,4 +1,4 @@
-package com.springboot;
+package com.springboot.api;
 
 import org.junit.Test;
 

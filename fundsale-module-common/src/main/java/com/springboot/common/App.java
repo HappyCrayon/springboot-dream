@@ -1,4 +1,4 @@
-package com.springboot;
+package com.springboot.common;
 
 /**
  * Hello world!
