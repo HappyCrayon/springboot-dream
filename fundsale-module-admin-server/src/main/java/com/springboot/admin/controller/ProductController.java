@@ -1,7 +1,10 @@
 package com.springboot.admin.controller;
 
+import com.springboot.admin.common.DBTypeEnum;
+import com.springboot.admin.common.DbContextHolder;
 import com.springboot.admin.entity.Department;
-import com.springboot.admin.mapper.DepartmentMapper;
+import com.springboot.admin.entity.Product;
+import com.springboot.admin.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,20 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/dept")
-public class DeptController {
+@RequestMapping("/prod")
+public class ProductController {
 
     @Autowired
-    DepartmentMapper departmentMapper;
+    ProductMapper productMapper;
 
     @GetMapping("/get/{id}")
     public Department getDepartment(@PathVariable("id") Integer id) {
-        return departmentMapper.getDeptById(id);
+        DbContextHolder.setDbType(DBTypeEnum.db2);
+        return productMapper.getProdById(id);
     }
 
     @GetMapping("/insert")
-    public Department insertDepartment(Department department) {
-        departmentMapper.insertDept(department);
-        return department;
+    public Product insertDepartment(Product product) {
+        DbContextHolder.setDbType(DBTypeEnum.db2);
+        productMapper.insertProd(product);
+        return product;
     }
 }

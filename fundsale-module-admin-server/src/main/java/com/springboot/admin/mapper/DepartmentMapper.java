@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 public interface DepartmentMapper {
 
     @Select("select * from department where id=#{id}")
-    public Department getDeptByI(Integer id);
+    public Department getDeptById(Integer id);
 
     @Delete("delete from department where id=#{id}")
     public int deleteDeptById(Integer id);
