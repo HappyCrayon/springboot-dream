@@ -97,9 +97,4 @@ public class MybatisPlusConfig {
         });
         return sqlSessionFactory.getObject();
     }
-
-
-
-
-
 }

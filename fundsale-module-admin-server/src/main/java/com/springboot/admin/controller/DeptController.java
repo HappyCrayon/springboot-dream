@@ -1,6 +1,6 @@
 package com.springboot.admin.controller;
 
-import com.springboot.admin.entity.Department;
+import com.springboot.api.entity.Department;
 import com.springboot.admin.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

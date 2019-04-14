@@ -1,6 +1,6 @@
 package com.springboot.admin.mapper;
 
-import com.springboot.admin.entity.Employee;
+import com.springboot.api.entity.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

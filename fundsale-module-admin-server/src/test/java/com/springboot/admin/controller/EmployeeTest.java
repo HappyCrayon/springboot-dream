@@ -1,7 +1,7 @@
 package com.springboot.admin.controller;
 
 
-import com.springboot.admin.entity.Employee;
+import com.springboot.api.entity.Employee;
 import com.springboot.admin.service.EmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

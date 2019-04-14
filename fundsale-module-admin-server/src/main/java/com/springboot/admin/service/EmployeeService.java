@@ -1,7 +1,7 @@
 package com.springboot.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.springboot.admin.entity.Employee;
+import com.springboot.api.entity.Employee;
 
 import java.util.List;
 

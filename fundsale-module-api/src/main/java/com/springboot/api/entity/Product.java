@@ -1,4 +1,4 @@
-package com.springboot.admin.entity;
+package com.springboot.api.entity;
 
 public class Product {
 

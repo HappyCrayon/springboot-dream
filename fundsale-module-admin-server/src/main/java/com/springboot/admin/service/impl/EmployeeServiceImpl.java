@@ -1,6 +1,6 @@
 package com.springboot.admin.service.impl;
 
-import com.springboot.admin.entity.Employee;
+import com.springboot.api.entity.Employee;
 import com.springboot.admin.mapper.EmployeeMapper;
 import com.springboot.admin.service.EmployeeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

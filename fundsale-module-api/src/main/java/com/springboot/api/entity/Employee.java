@@ -1,4 +1,4 @@
-package com.springboot.admin.entity;
+package com.springboot.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

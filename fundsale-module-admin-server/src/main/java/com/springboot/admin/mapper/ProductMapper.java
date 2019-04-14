@@ -1,7 +1,7 @@
 package com.springboot.admin.mapper;
 
-import com.springboot.admin.entity.Department;
-import com.springboot.admin.entity.Product;
+import com.springboot.api.entity.Department;
+import com.springboot.api.entity.Product;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
