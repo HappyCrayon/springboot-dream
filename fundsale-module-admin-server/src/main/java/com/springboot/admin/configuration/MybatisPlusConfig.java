@@ -97,4 +97,10 @@ public class MybatisPlusConfig {
         });
         return sqlSessionFactory.getObject();
     }
+
+//    @Bean
+//    public GlobalConfig globalConfig() {
+//        GlobalConfig conf = new GlobalConfig();
+//        return conf;
+//    }
 }
