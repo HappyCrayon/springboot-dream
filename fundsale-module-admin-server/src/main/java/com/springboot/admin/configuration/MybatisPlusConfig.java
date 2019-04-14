@@ -52,13 +52,13 @@ public class MybatisPlusConfig {
     }
 
     @Bean(name = "db1")
-    @ConfigurationProperties(prefix = "spring.datasource.druid.db1" )
+    @ConfigurationProperties(prefix = "spring.datasource.druid.db1")
     public DataSource db1 () {
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean(name = "db2")
-    @ConfigurationProperties(prefix = "spring.datasource.druid.db2" )
+    @ConfigurationProperties(prefix = "spring.datasource.druid.db2")
     public DataSource db2 () {
         return DruidDataSourceBuilder.create().build();
     }
@@ -70,10 +70,10 @@ public class MybatisPlusConfig {
     @Bean
     @Primary
     public DataSource multipleDataSource (@Qualifier("db1") DataSource db1,
-                                          @Qualifier("db2") DataSource db2 ) {
+                                          @Qualifier("db2") DataSource db2) {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         Map< Object, Object > targetDataSources = new HashMap<>();
-        targetDataSources.put(DBTypeEnum.db1.getValue(), db1 );
+        targetDataSources.put(DBTypeEnum.db1.getValue(), db1);
         targetDataSources.put(DBTypeEnum.db2.getValue(), db2);
         dynamicDataSource.setTargetDataSources(targetDataSources);
         dynamicDataSource.setDefaultTargetDataSource(db1);
