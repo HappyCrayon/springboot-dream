@@ -1,4 +1,4 @@
-//package com.springboot.admin.config;
+//package com.springboot.admin.configuration;
 //
 //import org.apache.ibatis.session.Configuration;
 //import org.mybatis.spring.annotation.MapperScan;

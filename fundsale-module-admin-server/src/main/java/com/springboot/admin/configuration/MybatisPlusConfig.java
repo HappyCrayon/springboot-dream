@@ -1,12 +1,12 @@
-package com.springboot.admin.config;
+package com.springboot.admin.configuration;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.springboot.admin.common.DBTypeEnum;
-import com.springboot.admin.common.DynamicDataSource;
+import com.springboot.common.datasource.DBTypeEnum;
+import com.springboot.common.datasource.DynamicDataSource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;

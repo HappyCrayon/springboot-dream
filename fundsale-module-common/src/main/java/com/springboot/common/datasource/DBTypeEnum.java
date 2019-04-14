@@ -1,4 +1,4 @@
-package com.springboot.admin.common;
+package com.springboot.common.datasource;
 
 /**
  * @Author DGD

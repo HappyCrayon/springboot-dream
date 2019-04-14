@@ -1,10 +1,9 @@
 package com.springboot.admin.controller;
 
-import com.springboot.admin.common.DBTypeEnum;
-import com.springboot.admin.common.DbContextHolder;
-import com.springboot.api.entity.Department;
-import com.springboot.api.entity.Product;
 import com.springboot.admin.mapper.ProductMapper;
+import com.springboot.api.entity.Product;
+import com.springboot.common.datasource.DBTypeEnum;
+import com.springboot.common.datasource.DbContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,7 @@ public class ProductController {
     ProductMapper productMapper;
 
     @GetMapping("/get/{id}")
-    public Department getDepartment(@PathVariable("id") Integer id) {
+    public Product getProduct(@PathVariable("id") Integer id) {
         DbContextHolder.setDbType(DBTypeEnum.db2);
         return productMapper.getProdById(id);
     }

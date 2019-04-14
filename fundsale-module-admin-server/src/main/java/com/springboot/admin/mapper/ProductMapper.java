@@ -1,6 +1,5 @@
 package com.springboot.admin.mapper;
 
-import com.springboot.api.entity.Department;
 import com.springboot.api.entity.Product;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -11,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 public interface ProductMapper {
 
     @Select("select * from product where prod_id=#{id}")
-    public Department getProdById(Integer id);
+    public Product getProdById(Integer id);
 
     @Delete("delete from product where prod_id=#{id}")
     public int deleteProdById(Integer id);

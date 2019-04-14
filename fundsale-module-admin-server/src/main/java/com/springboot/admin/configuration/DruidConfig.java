@@ -1,4 +1,4 @@
-package com.springboot.admin.config;
+package com.springboot.admin.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
