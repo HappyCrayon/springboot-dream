@@ -16,6 +16,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -83,7 +84,7 @@ public class MybatisPlusConfig {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(multipleDataSource(db1(),db2()));
         //指明mapper.xml位置(配置文件中指明的xml位置会失效用此方式代替，具体原因未知)
-        //sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*/*Mapper.xml"));
+        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mapper/**/*Mapper.xml"));
 
         MybatisConfiguration configuration = new MybatisConfiguration();
         //configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
@@ -92,7 +93,7 @@ public class MybatisPlusConfig {
         configuration.setCacheEnabled(false);
         sqlSessionFactory.setConfiguration(configuration);
         sqlSessionFactory.setPlugins(new Interceptor[]{ //PerformanceInterceptor(),OptimisticLockerInterceptor()
-                paginationInterceptor()
+                paginationInterceptor(), performanceInterceptor()
         });
         return sqlSessionFactory.getObject();
     }

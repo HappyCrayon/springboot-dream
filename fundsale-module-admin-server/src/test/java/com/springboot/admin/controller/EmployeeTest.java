@@ -25,13 +25,12 @@ public class EmployeeTest {
     @Transactional
     public void insertEmployee() {
         Employee employee = new Employee();
-        employee.setLastName("zhansan");
-        employee.setEmail("zhansan@qq.com");
+        employee.setLastName("lisi");
+        employee.setEmail("lisi@qq.com");
         employee.setGender(1);
-        employee.setdId(21);
+        employee.setdId(30);
         employeeService.save(employee);
         System.out.println(employee);
-        throw new RuntimeException();
     }
 
     @Test
