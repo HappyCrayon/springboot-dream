@@ -5,7 +5,7 @@ package com.springboot.common.datasource;
  * @date 2018/2/7.
  */
 public class DbContextHolder {
-    private static final ThreadLocal contextHolder = new ThreadLocal<>();
+    private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
     /**
      * 设置数据源
      * @param dbTypeEnum

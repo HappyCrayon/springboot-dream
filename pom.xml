@@ -11,8 +11,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.dream</groupId>
-    <artifactId>springboot-mytest</artifactId>
+    <groupId>com.springboot</groupId>
+    <artifactId>springboot-dream</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
@@ -22,9 +22,10 @@
         <module>fundsale-module-product-server</module>
         <module>fundsale-module-trade-server</module>
         <module>fundsale-module-clear-server</module>
+        <module>fundsale-module-channel-server</module>
     </modules>
 
-    <name>springboot-mytest</name>
+    <name>springboot-dream</name>
     <url>http://www.example.com</url>
     <description>Demo project for Spring Boot</description>
 
@@ -123,11 +124,13 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

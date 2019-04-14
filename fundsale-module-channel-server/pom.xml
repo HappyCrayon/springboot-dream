@@ -9,25 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fundsale-module-product-server</artifactId>
+    <artifactId>fundsale-module-channel-server</artifactId>
 
-    <name>fundsale-module-product-server</name>
+    <name>fundsale-module-channel-server</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
 
     <dependencies>
-        <dependency>
-            <groupId>com.springboot</groupId>
-            <artifactId>fundsale-module-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.springboot</groupId>
-            <artifactId>fundsale-module-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>
