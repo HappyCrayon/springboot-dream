@@ -52,7 +52,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false");
+        dsc.setUrl("jdbc:mysql://localhost:3306/fundsale?serverTimezone=GMT&useSSL=false");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -122,7 +122,7 @@ public class CodeGenerator {
         //strategy.setEntityLombokModel(true);
         //strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude("employee".split(","));
+        strategy.setInclude("product".split(","));
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");

@@ -1,5 +1,6 @@
 package com.springboot.admin.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.api.entity.Product;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -7,7 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 //@Mapper
-public interface ProductMapper {
+public interface ProductMapper extends BaseMapper<Product> {
 
     @Select("select * from product where prod_id=#{id}")
     public Product getProdById(Integer id);

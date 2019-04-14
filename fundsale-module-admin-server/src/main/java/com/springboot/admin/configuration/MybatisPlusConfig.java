@@ -62,6 +62,7 @@ public class MybatisPlusConfig {
     public DataSource db2 () {
         return DruidDataSourceBuilder.create().build();
     }
+
     /**
      * 动态数据源配置
      * @return
