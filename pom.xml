@@ -111,12 +111,12 @@
             <version>${druid.version}</version>
         </dependency>
 
-        <!-- 模板引擎 代码生成 -->
-        <dependency>
+        <!-- 模板引擎 代码生成 [mybatis-plus 3.0.2版本已内置，无需引用]-->
+        <!--<dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
-        </dependency>
+        </dependency>-->
 
 
 
