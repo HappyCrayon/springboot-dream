@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -21,12 +20,13 @@ import java.util.Map;
  * @author : heibaiying
  * @description : 多数据源配置
  */
-@EnableTransactionManagement
 @Configuration
-@MapperScan(basePackages = {"com.springboot.admin.mapper"}, sqlSessionTemplateRef = "sqlSessionTemplate")
-public class MybatisPlusConfig {
+@MapperScan(basePackages = DataSourceFactory.BASE_PACKAGES, sqlSessionTemplateRef = "sqlSessionTemplate")
+public class DataSourceFactory {
 
-    private static final String MAPPER_LOCATION = "classpath*:/mapper/**/*Mapper.xml";
+    static final String BASE_PACKAGES = "com.springboot.admin.mapper";
+
+    private static final String MAPPER_LOCATION = "classpath:mapper/*.xml";
 
 
     /***

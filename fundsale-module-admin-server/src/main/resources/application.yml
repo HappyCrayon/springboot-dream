@@ -37,7 +37,7 @@ spring:
         url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false
         username: root
         password: root
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        driver-class-name: com.mysql.jdbc.Driver
 
         # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
         initialSize: 5
@@ -68,7 +68,7 @@ spring:
         url: jdbc:mysql://localhost:3306/fundsale?serverTimezone=GMT&useSSL=false
         username: root
         password: root
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        driver-class-name: com.mysql.jdbc.Driver
 
         # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
         initialSize: 6
