@@ -33,8 +33,8 @@ public class MultiDBTest {
             DbContextHolder.setDbType(DBTypeEnum.db1);
             departmentMapper.selectList(null).stream().forEach(item -> System.out.println(item));
 
-            DbContextHolder.setDbType(DBTypeEnum.db2);
-            productMapper.selectList(null).stream().forEach(item -> System.out.println(item));
+//            DbContextHolder.setDbType(DBTypeEnum.db2);
+//            productMapper.selectList(null).stream().forEach(item -> System.out.println(item));
 
             //transactionManager.commit(status);
         } catch (Exception e) {

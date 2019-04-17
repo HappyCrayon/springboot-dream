@@ -1,21 +1,15 @@
 package com.springboot.admin.configuration;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.springboot.common.datasource.DBTypeEnum;
-import com.springboot.common.datasource.DynamicDataSource;
-import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.type.JdbcType;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,84 +18,118 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author DGD
- * @date 2018/2/6.
+ * @author : heibaiying
+ * @description : 多数据源配置
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan(basePackages = {"com.springboot.admin.mapper"})
+@MapperScan(basePackages = {"com.springboot.admin.mapper"}, sqlSessionTemplateRef = "sqlSessionTemplate")
 public class MybatisPlusConfig {
 
-    /**
-     * mybatis-plus分页插件<br>
-     * 文档：http://mp.baomidou.com<br>
+    private static final String MAPPER_LOCATION = "classpath*:/mapper/**/*Mapper.xml";
+
+
+    /***
+     * 创建 DruidXADataSource 1 用@ConfigurationProperties自动配置属性
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        //paginationInterceptor.setLocalPage(true);// 开启 PageHelper 的支持
-        return paginationInterceptor;
+    @ConfigurationProperties("spring.datasource.druid.db1")
+    public DataSource druidDataSourceOne() {
+        return new DruidXADataSource();
     }
 
-    /**
-     * mybatis-plus SQL执行效率插件【生产环境可以关闭】
+    /***
+     * 创建 DruidXADataSource 2
      */
     @Bean
-    public PerformanceInterceptor performanceInterceptor() {
-        return new PerformanceInterceptor();
-    }
-
-    @Bean(name = "db1")
-    @ConfigurationProperties(prefix = "spring.datasource.druid.db1")
-    public DataSource db1 () {
-        return DruidDataSourceBuilder.create().build();
-    }
-
-    @Bean(name = "db2")
-    @ConfigurationProperties(prefix = "spring.datasource.druid.db2")
-    public DataSource db2 () {
-        return DruidDataSourceBuilder.create().build();
+    @ConfigurationProperties("spring.datasource.druid.db2")
+    public DataSource druidDataSourceTwo() {
+        return new DruidXADataSource();
     }
 
     /**
-     * 动态数据源配置
-     * @return
+     * 创建支持XA事务的Atomikos数据源1
      */
     @Bean
-    @Primary
-    public DataSource multipleDataSource (@Qualifier("db1") DataSource db1,
-                                          @Qualifier("db2") DataSource db2) {
-        DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        Map< Object, Object > targetDataSources = new HashMap<>();
-        targetDataSources.put(DBTypeEnum.db1.getValue(), db1);
-        targetDataSources.put(DBTypeEnum.db2.getValue(), db2);
-        dynamicDataSource.setTargetDataSources(targetDataSources);
-        dynamicDataSource.setDefaultTargetDataSource(db1);
-        return dynamicDataSource;
+    public DataSource dataSourceOne(DataSource druidDataSourceOne) {
+        AtomikosDataSourceBean sourceBean = new AtomikosDataSourceBean();
+        sourceBean.setXaDataSource((DruidXADataSource) druidDataSourceOne);
+        // 必须为数据源指定唯一标识
+        sourceBean.setUniqueResourceName("db1");
+        return sourceBean;
     }
 
-    @Bean("sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
-        MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(multipleDataSource(db1(),db2()));
-        //指明mapper.xml位置(配置文件中指明的xml位置会失效用此方式代替，具体原因未知)
-        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mapper/**/*Mapper.xml"));
+    /**
+     * 创建支持XA事务的Atomikos数据源2
+     */
+    @Bean
+    public DataSource dataSourceTwo(DataSource druidDataSourceTwo) {
+        AtomikosDataSourceBean sourceBean = new AtomikosDataSourceBean();
+        sourceBean.setXaDataSource((DruidXADataSource) druidDataSourceTwo);
+        sourceBean.setUniqueResourceName("db2");
+        return sourceBean;
+    }
 
-        MybatisConfiguration configuration = new MybatisConfiguration();
-        //configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
-        configuration.setJdbcTypeForNull(JdbcType.NULL);
+
+    /**
+     * @param dataSourceOne 数据源1
+     * @return 数据源1的会话工厂
+     */
+    @Bean
+    public SqlSessionFactory sqlSessionFactoryOne(DataSource dataSourceOne)
+            throws Exception {
+        return createSqlSessionFactory(dataSourceOne);
+    }
+
+
+    /**
+     * @param dataSourceTwo 数据源2
+     * @return 数据源2的会话工厂
+     */
+    @Bean
+    public SqlSessionFactory sqlSessionFactoryTwo(DataSource dataSourceTwo)
+            throws Exception {
+        return createSqlSessionFactory(dataSourceTwo);
+    }
+
+
+    /***
+     * sqlSessionTemplate与Spring事务管理一起使用，以确保使用的实际SqlSession是与当前Spring事务关联的,
+     * 此外它还管理会话生命周期，包括根据Spring事务配置根据需要关闭，提交或回滚会话
+     * @param sqlSessionFactoryOne 数据源1
+     * @param sqlSessionFactoryTwo 数据源2
+     */
+    @Bean
+    public CustomSqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactoryOne,
+                                                       SqlSessionFactory sqlSessionFactoryTwo) {
+        Map<Object, SqlSessionFactory> sqlSessionFactoryMap = new HashMap<>();
+        sqlSessionFactoryMap.put(DBTypeEnum.db1.getValue(), sqlSessionFactoryOne);
+        sqlSessionFactoryMap.put(DBTypeEnum.db2.getValue(), sqlSessionFactoryTwo);
+
+        CustomSqlSessionTemplate customSqlSessionTemplate = new CustomSqlSessionTemplate(sqlSessionFactoryOne);
+        customSqlSessionTemplate.setTargetSqlSessionFactories(sqlSessionFactoryMap);
+        return customSqlSessionTemplate;
+    }
+
+    /***
+     * 自定义会话工厂
+     * @param dataSource 数据源
+     * @return :自定义的会话工厂
+     */
+    private SqlSessionFactory createSqlSessionFactory(DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
+        // 其他可配置项(包括是否打印sql,是否开启驼峰命名等)
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
-        configuration.setCacheEnabled(false);
-        sqlSessionFactory.setConfiguration(configuration);
-        sqlSessionFactory.setPlugins(new Interceptor[]{ //PerformanceInterceptor(),OptimisticLockerInterceptor()
-                paginationInterceptor(), performanceInterceptor()
-        });
-        return sqlSessionFactory.getObject();
+        configuration.setLogImpl(StdOutImpl.class);
+        factoryBean.setConfiguration(configuration);
+        /* *
+         * 采用个如下方式配置属性的时候一定要保证已经进行数据源的配置(setDataSource)和数据源和MapperLocation配置(setMapperLocations)
+         * factoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
+         * factoryBean.getObject().getConfiguration().setLogImpl(StdOutImpl.class);
+         **/
+        return factoryBean.getObject();
     }
-
-//    @Bean
-//    public GlobalConfig globalConfig() {
-//        GlobalConfig conf = new GlobalConfig();
-//        return conf;
-//    }
 }
