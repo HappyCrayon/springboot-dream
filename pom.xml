@@ -118,28 +118,20 @@
             <version>${druid.version}</version>
         </dependency>
 
-        <!-- 分布式事务，还未解决 -->
+        <!-- 分布式事务 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jta-atomikos</artifactId>
         </dependency>
 
-        <!-- 模板引擎 代码生成 [mybatis-plus 3.0.2版本已内置，无需引用]-->
-        <!--<dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
-        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <!-- google的guava工具类 -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <!-- 阿里的fastjson的json工具包 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
