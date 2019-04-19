@@ -26,10 +26,9 @@ import static org.mybatis.spring.SqlSessionUtils.*;
  * @description: 自定义 sqlSessionTemplate 实现
  * 这个方法继承自sqlSessionTemplate,主要是重写了getSqlSessionFactory方法,并在getSqlSession时候传入我们用此方法得到的SqlSessionFactory
  */
-
 public class CustomSqlSessionTemplate extends SqlSessionTemplate {
 
-    Logger log = LoggerFactory.getLogger(getClass());
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     private final SqlSessionFactory sqlSessionFactory;
     private final ExecutorType executorType;
@@ -77,10 +76,8 @@ public class CustomSqlSessionTemplate extends SqlSessionTemplate {
     /***
      *  获取当前使用数据源对应的会话工厂
      */
-
     @Override
     public SqlSessionFactory getSqlSessionFactory() {
-
         String dataSourceKey = DbContextHolder.getDbType();
         log.info("当前会话工厂 : {}", dataSourceKey);
         SqlSessionFactory targetSqlSessionFactory = targetSqlSessionFactories.get(dataSourceKey);

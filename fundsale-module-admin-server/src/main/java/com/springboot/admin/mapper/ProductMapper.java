@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 //@Mapper
 public interface ProductMapper extends BaseMapper<Product> {
 
@@ -19,4 +21,7 @@ public interface ProductMapper extends BaseMapper<Product> {
     @Options(useGeneratedKeys = true, keyProperty = "prodId")
     @Insert("insert into product(prod_name) values(#{prodName})")
     public int insertProd(Product product);
+
+    @Select("select * from product")
+    public List<Product> selectAllProds();
 }

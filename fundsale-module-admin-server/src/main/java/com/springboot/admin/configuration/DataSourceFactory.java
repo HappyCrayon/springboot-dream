@@ -2,10 +2,11 @@ package com.springboot.admin.configuration;
 
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.springboot.common.datasource.DBTypeEnum;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,13 +22,10 @@ import java.util.Map;
  * @description : 多数据源配置
  */
 @Configuration
-@MapperScan(basePackages = DataSourceFactory.BASE_PACKAGES, sqlSessionTemplateRef = "sqlSessionTemplate")
+@MapperScan(basePackages = {"com.springboot.admin.mapper"}, sqlSessionTemplateRef = "sqlSessionTemplate")
 public class DataSourceFactory {
 
-    static final String BASE_PACKAGES = "com.springboot.admin.mapper";
-
     private static final String MAPPER_LOCATION = "classpath:mapper/*.xml";
-
 
     /***
      * 创建 DruidXADataSource 1 用@ConfigurationProperties自动配置属性
@@ -55,7 +53,7 @@ public class DataSourceFactory {
         AtomikosDataSourceBean sourceBean = new AtomikosDataSourceBean();
         sourceBean.setXaDataSource((DruidXADataSource) druidDataSourceOne);
         // 必须为数据源指定唯一标识
-        sourceBean.setUniqueResourceName("db1");
+        sourceBean.setUniqueResourceName(DBTypeEnum.db1.getValue());
         return sourceBean;
     }
 
@@ -66,7 +64,7 @@ public class DataSourceFactory {
     public DataSource dataSourceTwo(DataSource druidDataSourceTwo) {
         AtomikosDataSourceBean sourceBean = new AtomikosDataSourceBean();
         sourceBean.setXaDataSource((DruidXADataSource) druidDataSourceTwo);
-        sourceBean.setUniqueResourceName("db2");
+        sourceBean.setUniqueResourceName(DBTypeEnum.db2.getValue());
         return sourceBean;
     }
 
@@ -76,8 +74,7 @@ public class DataSourceFactory {
      * @return 数据源1的会话工厂
      */
     @Bean
-    public SqlSessionFactory sqlSessionFactoryOne(DataSource dataSourceOne)
-            throws Exception {
+    public SqlSessionFactory sqlSessionFactoryOne(DataSource dataSourceOne) throws Exception {
         return createSqlSessionFactory(dataSourceOne);
     }
 
@@ -87,8 +84,7 @@ public class DataSourceFactory {
      * @return 数据源2的会话工厂
      */
     @Bean
-    public SqlSessionFactory sqlSessionFactoryTwo(DataSource dataSourceTwo)
-            throws Exception {
+    public SqlSessionFactory sqlSessionFactoryTwo(DataSource dataSourceTwo) throws Exception {
         return createSqlSessionFactory(dataSourceTwo);
     }
 
@@ -117,11 +113,16 @@ public class DataSourceFactory {
      * @return :自定义的会话工厂
      */
     private SqlSessionFactory createSqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        // mybatis=plus使用MybatisSqlSessionFactoryBean，mybatis使用SqlSessionFactoryBean
+        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
+//        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
+
         // 其他可配置项(包括是否打印sql,是否开启驼峰命名等)
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        // mybatis=MybatisConfiguration，mybatis使用Configuration
+        MybatisConfiguration configuration = new MybatisConfiguration();
+//        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setLogImpl(StdOutImpl.class);
         factoryBean.setConfiguration(configuration);

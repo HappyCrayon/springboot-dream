@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 //@Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
 
@@ -19,4 +21,7 @@ public interface DepartmentMapper extends BaseMapper<Department> {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     @Insert("insert into department(departmentName) values(#{departmentName})")
     public int insertDept(Department department);
+
+    @Select("select * from department")
+    public List<Department> selectAllDepts();
 }
