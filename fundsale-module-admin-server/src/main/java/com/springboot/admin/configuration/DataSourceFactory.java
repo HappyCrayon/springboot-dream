@@ -3,9 +3,11 @@ package com.springboot.admin.configuration;
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.springboot.common.datasource.DBTypeEnum;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -26,6 +28,14 @@ import java.util.Map;
 public class DataSourceFactory {
 
     private static final String MAPPER_LOCATION = "classpath:mapper/*.xml";
+
+    /**
+     * mybatis-plus分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
 
     /***
      * 创建 DruidXADataSource 1 用@ConfigurationProperties自动配置属性
@@ -118,6 +128,9 @@ public class DataSourceFactory {
 //        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
+        factoryBean.setPlugins(new Interceptor[]{
+                paginationInterceptor()//, dataScopeInterceptor(), optimisticLockerInterceptor()
+        });
 
         // 其他可配置项(包括是否打印sql,是否开启驼峰命名等)
         // mybatis=MybatisConfiguration，mybatis使用Configuration
