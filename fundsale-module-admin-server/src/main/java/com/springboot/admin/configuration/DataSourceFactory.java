@@ -1,6 +1,8 @@
 package com.springboot.admin.configuration;
 
 import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.atomikos.icatch.jta.UserTransactionImp;
+import com.atomikos.icatch.jta.UserTransactionManager;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -14,8 +16,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
+import javax.transaction.TransactionManager;
+import javax.transaction.UserTransaction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +31,7 @@ import java.util.Map;
  * @description : 多数据源配置
  */
 @Configuration
+@EnableTransactionManagement
 @MapperScan(basePackages = {"com.springboot.admin.mapper"}, sqlSessionTemplateRef = "sqlSessionTemplate")
 public class DataSourceFactory {
 
@@ -78,7 +86,6 @@ public class DataSourceFactory {
         return sourceBean;
     }
 
-
     /**
      * @param dataSourceOne 数据源1
      * @return 数据源1的会话工厂
@@ -87,7 +94,6 @@ public class DataSourceFactory {
     public SqlSessionFactory sqlSessionFactoryOne(DataSource dataSourceOne) throws Exception {
         return createSqlSessionFactory(dataSourceOne);
     }
-
 
     /**
      * @param dataSourceTwo 数据源2
@@ -146,4 +152,26 @@ public class DataSourceFactory {
          **/
         return factoryBean.getObject();
     }
+
+    /*************************************** JTA事务配置begin ***************************************/
+    @Bean
+    public UserTransaction userTransaction() throws Throwable {
+        UserTransactionImp userTransactionImp = new UserTransactionImp();
+        userTransactionImp.setTransactionTimeout(10000);
+        return userTransactionImp;
+    }
+
+    @Bean(initMethod = "init", destroyMethod = "close")
+    public TransactionManager atomikosTransactionManager() {
+        UserTransactionManager userTransactionManager = new UserTransactionManager();
+        userTransactionManager.setForceShutdown(false);
+        return userTransactionManager;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(UserTransaction userTransaction,
+                                                         TransactionManager transactionManager) {
+        return new JtaTransactionManager(userTransaction, transactionManager);
+    }
+    /*************************************** JTA事务配置end ***************************************/
 }

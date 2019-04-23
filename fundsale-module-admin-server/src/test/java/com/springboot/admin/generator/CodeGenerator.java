@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +48,14 @@ public class CodeGenerator {
         gc.setOpen(true);
         gc.setServiceName("%sService");
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        gc.setActiveRecord(true);  //entity是否继承泛型
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/fundsale?serverTimezone=GMT&useSSL=false");
+        dsc.setUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false");
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
         mpg.setDataSource(dsc);
@@ -74,9 +75,9 @@ public class CodeGenerator {
         };
 
         // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
+        //String templatePath = "/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
-        //String templatePath = "/templates/mapper.xml.vm";
+        String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
@@ -107,7 +108,7 @@ public class CodeGenerator {
 
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
+        // templateConfig.setEntity("templates/entity.java");
         // templateConfig.setService(%sService);
         // templateConfig.setController();
 
@@ -118,19 +119,19 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        //strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
+        //strategy.setSuperEntityClass("com.baomidou.mybatisplus.extension.activerecord.Model");
         //strategy.setEntityLombokModel(true);
         //strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude("product".split(","));
+        strategy.setInclude("employee".split(","));
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         // 如果模板引擎是 freemarker
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        // mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         // 如果模板引擎是 velocity
-        // mpg.setTemplateEngine(new VelocityTemplateEngine());
+        mpg.setTemplateEngine(new VelocityTemplateEngine());
         mpg.execute();
     }
 

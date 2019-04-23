@@ -5,5 +5,9 @@
     <select id="getEmployeeById" parameterType="java.lang.Integer" resultType="com.springboot.api.entity.Employee">
         select * from employee where id = #{id}
     </select>
+
+    <select id="selectEmployeePage" parameterType="com.springboot.api.dto.EmployeeDTO" resultType="com.springboot.api.entity.Employee">
+        select * from employee
+    </select>
     
 </mapper>
