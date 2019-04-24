@@ -4,12 +4,10 @@ package com.springboot.trade.validate;
 import com.springboot.trade.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.Set;
 
 /**
@@ -20,15 +18,13 @@ import java.util.Set;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ValidationTest {
 
-    @Autowired
-    private Validator validator;
-
     @Test
     public void validateUser() {
         User user = new User();
-        Set<ConstraintViolation<User>> violationSet = validator.validate(user);
+        ValidationProxy.validate(user);
+        Set<ConstraintViolation<User>> violationSet = ValidationProxy.validate(user);
         for (ConstraintViolation<User> model : violationSet) {
-            System.out.println(model.getMessage());
+            System.out.println("======" + model.getMessage());
         }
     }
 }
