@@ -1,6 +1,7 @@
 package com.springboot.trade.validate;
 
 
+import com.springboot.trade.component.ValidationUtil;
 import com.springboot.trade.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +22,8 @@ public class ValidationTest {
     @Test
     public void validateUser() {
         User user = new User();
-        ValidationProxy.validate(user);
-        Set<ConstraintViolation<User>> violationSet = ValidationProxy.validate(user);
+        ValidationUtil.validate(user);
+        Set<ConstraintViolation<User>> violationSet = ValidationUtil.validate(user);
         for (ConstraintViolation<User> model : violationSet) {
             System.out.println("======" + model.getMessage());
         }
