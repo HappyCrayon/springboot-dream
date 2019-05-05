@@ -21,7 +21,7 @@ import javax.sql.DataSource;
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan(basePackages = {"com.springboot.admin.mapper"})
+@MapperScan(basePackages = {"com.springboot.trade.mapper"})
 public class MybatisPlusConfig {
 
     /**
