@@ -48,12 +48,12 @@ public class CodeGenerator {
         gc.setOpen(true);
         gc.setServiceName("%sService");
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
-        gc.setActiveRecord(true);  //entity是否继承泛型
+//        gc.setActiveRecord(true);  //entity是否继承泛型
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false");
+        dsc.setUrl("jdbc:mysql://localhost:3306/trade?serverTimezone=GMT&useSSL=false");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
@@ -63,7 +63,7 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.springboot");
-        pc.setModuleName("admin");
+        pc.setModuleName("trade");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -123,7 +123,7 @@ public class CodeGenerator {
         //strategy.setEntityLombokModel(true);
         //strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude("employee".split(","));
+        strategy.setInclude("t6_cust_info".split(","));
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
