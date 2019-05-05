@@ -4,7 +4,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false
+    url: jdbc:mysql://localhost:3306/trade?serverTimezone=GMT&useSSL=false
 #   数据库其他配置
     initialSize: 5
     minIdle: 5
