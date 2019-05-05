@@ -14,6 +14,7 @@ public class User {
 
     @AssertFalse(message = "必须为false")
     private Boolean isFalse;
+
     /**
      * 如果是空，则不校验，如果不为空，则校验
      */
