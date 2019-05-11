@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RequestMapping("/product")
-@FeignClient(value = "product-service", url = "http://localhost:9300")
+@FeignClient("fundsale-product-server")
 public interface ProductApi {
 
     @RequestMapping(path = "/invoke_product/{name}", method = RequestMethod.GET)

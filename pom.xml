@@ -23,6 +23,7 @@
         <module>fundsale-module-trade-server</module>
         <module>fundsale-module-clear-server</module>
         <module>fundsale-module-channel-server</module>
+        <module>fundsale-module-eureka-server</module>
     </modules>
 
     <name>springboot-dream</name>
@@ -40,6 +41,7 @@
         <guava.version>23.0</guava.version>
         <fastjson.version>1.2.54</fastjson.version>
         <velocity.version>1.7</velocity.version>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -149,6 +151,14 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
