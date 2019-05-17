@@ -8,6 +8,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -21,6 +22,8 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = {"com.springboot.trade.mapper"})
 public class MybatisPlusConfig {
+
+    private static final String MAPPER_LOCATION = "classpath:mapper/*Mapper.xml";
 
     /**
      * mybatis-plus分页插件<br>
@@ -43,6 +46,7 @@ public class MybatisPlusConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource());
+        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
         return sqlSessionFactory.getObject();
     }
 

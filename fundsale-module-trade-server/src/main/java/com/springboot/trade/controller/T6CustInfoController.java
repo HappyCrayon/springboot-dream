@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -46,7 +47,13 @@ public class T6CustInfoController {
     @ApiOperation(value = "测试BeanUtil", notes = "测试BeanUtil")
     public List<T6CustInfo> testBeanUtil() {
         T6CustInfoMapper custInfoMapper = SpringContextUtils.getBean(T6CustInfoMapper.class);
-        return custInfoMapper.selectList(null);
+        try {
+            Method method = custInfoMapper.getClass().getMethod("selectCustInfo");
+            return (List<T6CustInfo>) method.invoke(custInfoMapper);
+        } catch (Exception e) {
+            log.error("错误", e);
+        }
+        return null;
     }
 }
 

@@ -1,7 +1,9 @@
 package com.springboot.trade.mapper;
 
-import com.springboot.trade.entity.T6CustInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.springboot.trade.entity.T6CustInfo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface T6CustInfoMapper extends BaseMapper<T6CustInfo> {
 
+    List<T6CustInfo> selectCustInfo();
 }
