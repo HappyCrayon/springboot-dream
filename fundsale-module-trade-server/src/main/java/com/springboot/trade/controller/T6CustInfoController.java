@@ -1,7 +1,9 @@
 package com.springboot.trade.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.springboot.trade.component.SpringContextUtils;
 import com.springboot.trade.entity.T6CustInfo;
+import com.springboot.trade.mapper.T6CustInfoMapper;
 import com.springboot.trade.service.T6CustInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +40,13 @@ public class T6CustInfoController {
     public List<T6CustInfo> queryCustList(@RequestBody JSONObject request) {
         log.info(request.toJSONString());
         return custInfoService.list();
+    }
+
+    @PostMapping("/testBeanUtil")
+    @ApiOperation(value = "测试BeanUtil", notes = "测试BeanUtil")
+    public List<T6CustInfo> testBeanUtil() {
+        T6CustInfoMapper custInfoMapper = SpringContextUtils.getBean(T6CustInfoMapper.class);
+        return custInfoMapper.selectList(null);
     }
 }
 
