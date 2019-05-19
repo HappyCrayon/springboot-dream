@@ -29,7 +29,8 @@ public class ComnController {
         if (Strings.isNullOrEmpty(serviceName)) {
             return ResponseUtil.buildFailureRes("COMN-00001", "serviceName is empty!");
         }
-        ComnServiceApi comnServiceApi = Feign.builder().encoder(new GsonEncoder()).target(ComnServiceApi.class, "http://localhost:9300");
+        // url(server name) + Mapper + method
+        ComnServiceApi comnServiceApi = Feign.builder().encoder(new GsonEncoder()).target(ComnServiceApi.class, "http://localhost:9400");
         return comnServiceApi.perform(request);
     }
 }
