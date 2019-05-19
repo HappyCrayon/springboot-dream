@@ -16,7 +16,11 @@
     <url>http://www.example.com</url>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
