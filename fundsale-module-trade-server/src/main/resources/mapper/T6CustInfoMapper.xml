@@ -5,4 +5,23 @@
     <select id="selectCustInfo" resultType="com.springboot.trade.entity.T6CustInfo">
         select * from t6_cust_info
     </select>
+
+    <select id="selectEntity" resultType="java.util.Map">
+        select * from t6_cust_info where 1 = 1
+        <if test="custNo != null">
+            and cust_no = #{custNo}
+        </if>
+    </select>
+
+    <select id="selectEntity123" resultType="java.util.Map">
+        select * from t6_cust_info where 1 = 1
+        <if test="custNo != null">
+            and cust_no = #{custNo}
+        </if>
+    </select>
+
+    <insert id="insertEntity">
+        insert into t6_cust_info(cust_no, cust_name, id_type, id_code, create_date, create_time)
+        values (#{custNo}, #{custName}, #{idType}, #{idCode}, #{createDate}, #{createTime})
+    </insert>
 </mapper>
