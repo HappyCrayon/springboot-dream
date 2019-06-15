@@ -18,7 +18,7 @@
     </select>
 
     <select id="selectEntity123" resultType="java.util.Map">
-        select * from t6_cust_info where 1 = 1
+        select CUST_NO, cust_name, id_type, id_code, create_date, create_time from t6_cust_info where 1 = 1
         <if test="custNo != null">
             and cust_no = #{custNo}
         </if>

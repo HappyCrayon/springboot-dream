@@ -51,7 +51,7 @@ public class T6CustInfoController {
     @ApiOperation(value = "testSelect", notes = "testSelect")
     public String testSelect(@RequestBody JSONObject request) {
         Map params = request.getInnerMap();
-        params.put("sql_content", "select * from t6_cust_info");
+        params.put("sql_content", "SELECT CUST_NO, cust_name, ID_TYPE, ID_CODE, CREATE_DATE, CREATE_TIME FROM t6_cust_info ");
         List<Map> resultList = sqlSessionTemplate.selectList("com.springboot.trade.mapper.T6CustInfoMapper.comnSelect", params);
         return JSON.toJSONString(resultList);
     }
