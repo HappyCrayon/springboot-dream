@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.trade.entity.T6CustInfo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -17,6 +16,4 @@ import java.util.Map;
 public interface T6CustInfoMapper extends BaseMapper<T6CustInfo> {
 
     List<T6CustInfo> selectCustInfo();
-
-    List<Map> selectEntity(Map params);
 }

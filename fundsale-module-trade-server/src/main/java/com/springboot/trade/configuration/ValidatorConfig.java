@@ -9,7 +9,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 @Configuration
-public class ValidatorConfiguration {
+public class ValidatorConfig {
     
     @Bean
     public Validator validator(){

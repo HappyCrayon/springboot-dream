@@ -2,7 +2,9 @@ package com.springboot.trade.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.springboot.common.util.SQLUtil;
 import com.springboot.trade.entity.T6CustInfo;
+import com.springboot.trade.mapper.T6CustInfoMapper;
 import com.springboot.trade.service.T6CustInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,36 +39,48 @@ public class T6CustInfoController {
     private T6CustInfoService custInfoService;
 
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;;
+    private T6CustInfoMapper custInfoMapper;
+
+    @Autowired
+    private SqlSessionTemplate sqlSessionTemplate;
+
+    @Autowired
+    private SQLUtil sqlUtil;
 
 
-    @PostMapping("/queryCustList")
-    @ApiOperation(value = "查询客户列表", notes = "查询客户列表")
-    public List<T6CustInfo> queryCustList(@RequestBody JSONObject request) {
-        log.info(request.toJSONString());
+    @PostMapping("/queryCustList1")
+    @ApiOperation(value = "查询客户列表1", notes = "查询客户列表1")
+    public List<T6CustInfo> queryCustList1(@RequestBody JSONObject request) {
         return custInfoService.list();
     }
 
-    @PostMapping("/testSelect")
-    @ApiOperation(value = "testSelect", notes = "testSelect")
-    public String testSelect(@RequestBody JSONObject request) {
-        Map params = request.getInnerMap();
-        params.put("sql_content", "SELECT CUST_NO, cust_name, ID_TYPE, ID_CODE, CREATE_DATE, CREATE_TIME FROM t6_cust_info ");
-        List<Map> resultList = sqlSessionTemplate.selectList("com.springboot.trade.mapper.T6CustInfoMapper.comnSelect", params);
+    @PostMapping("/queryCustList2")
+    @ApiOperation(value = "查询客户列表2", notes = "查询客户列表2")
+    public List<T6CustInfo> queryCustList2(@RequestBody JSONObject request) {
+        return custInfoMapper.selectCustInfo();
+    }
+
+    @PostMapping("/comnSelect")
+    @ApiOperation(value = "comnSelect", notes = "comnSelect")
+    public String comnSelect(@RequestBody JSONObject request) {
+        String sql = "SELECT CUST_NO, cust_name, ID_TYPE, ID_CODE, CREATE_DATE, CREATE_TIME FROM t6_cust_info";
+        List<Map> resultList = sqlUtil.selectList(sql, request);
         return JSON.toJSONString(resultList);
     }
 
-    @PostMapping("/test")
-    @ApiOperation(value = "test", notes = "test")
-    public String test(@RequestBody JSONObject request) {
-        List<Map> resultList = sqlSessionTemplate.selectList("com.springboot.trade.mapper.T6CustInfoMapper.selectEntity123", request.getInnerMap());
+    @PostMapping("/selectEntity")
+    @ApiOperation(value = "selectEntity", notes = "selectEntity")
+    public String selectEntity(@RequestBody JSONObject request) {
+        String statementId = "com.springboot.trade.mapper.T6CustInfoMapper.selectEntity";
+        List<Map> resultList = sqlSessionTemplate.selectList(statementId, request.getInnerMap());
         return JSON.toJSONString(resultList);
     }
 
-    @PostMapping("/testInsert")
-    @ApiOperation(value = "testInsert", notes = "testInsert")
-    public String testInsert(@RequestBody T6CustInfo t6CustInfo) {
-        int result = sqlSessionTemplate.insert("com.springboot.trade.mapper.T6CustInfoMapper.insertEntity", t6CustInfo);
+    @PostMapping("/insertEntity")
+    @ApiOperation(value = "insertEntity", notes = "insertEntity")
+    public String insertEntity(@RequestBody T6CustInfo t6CustInfo) {
+        String statementId = "com.springboot.trade.mapper.T6CustInfoMapper.insertEntity";
+        int result = sqlSessionTemplate.insert(statementId, t6CustInfo);
         return "yes";
     }
 }
