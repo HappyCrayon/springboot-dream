@@ -9,8 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ApproveInterceptor implements HandlerInterceptor {
-	private static final Logger logger = LoggerFactory.getLogger(ApproveInterceptor.class);
+/**
+ * 审批流拦截器
+ */
+public class ApproveFlowInterceptor implements HandlerInterceptor {
+	private static final Logger logger = LoggerFactory.getLogger(ApproveFlowInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

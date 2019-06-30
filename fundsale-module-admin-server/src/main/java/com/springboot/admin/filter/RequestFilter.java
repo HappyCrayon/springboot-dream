@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
+/**
+ * 请求过滤器，封装request参数，用于多次通过从流中获取数据
+ */
 @Component
 @WebFilter(urlPatterns = "/*", filterName = "requestFilter")
 public class RequestFilter implements Filter {
