@@ -1,7 +1,7 @@
 package com.springboot.trade.validate;
 
 
-import com.springboot.trade.component.ValidationUtil;
+import com.springboot.common.util.ValidationUtil;
 import com.springboot.trade.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.springboot.trade.component;
+package com.springboot.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpringContextUtils implements ApplicationContextAware {
+public class SpringCxtUtil implements ApplicationContextAware {
     /**
      * 上下文对象实例
      */
