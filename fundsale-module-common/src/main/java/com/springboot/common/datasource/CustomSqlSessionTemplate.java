@@ -1,6 +1,5 @@
-package com.springboot.admin.configuration;
+package com.springboot.common.datasource;
 
-import com.springboot.common.datasource.DbContextHolder;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.executor.BatchResult;

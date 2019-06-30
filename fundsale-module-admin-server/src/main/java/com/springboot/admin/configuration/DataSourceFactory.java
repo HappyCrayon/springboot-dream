@@ -7,6 +7,7 @@ import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.springboot.common.datasource.CustomSqlSessionTemplate;
 import com.springboot.common.datasource.DBTypeEnum;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.plugin.Interceptor;
