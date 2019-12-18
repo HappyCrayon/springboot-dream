@@ -2,11 +2,12 @@ package com.springboot.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author HappyCrayon
@@ -28,6 +29,7 @@ public class Product implements Serializable {
     public void setProdId(Integer prodId) {
         this.prodId = prodId;
     }
+
     public String getProdName() {
         return prodName;
     }
@@ -39,8 +41,8 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "Product{" +
-        "prodId=" + prodId +
-        ", prodName=" + prodName +
-        "}";
+                "prodId=" + prodId +
+                ", prodName=" + prodName +
+                "}";
     }
 }
