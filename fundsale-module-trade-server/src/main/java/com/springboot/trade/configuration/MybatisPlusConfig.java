@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.springboot.common.factory.YamlPropertySourceFactory;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -21,8 +23,9 @@ import javax.sql.DataSource;
  * @Author DGD
  * @date 2018/2/6.
  */
-@EnableTransactionManagement
 @Configuration
+@EnableTransactionManagement
+@PropertySource(value = "classpath:mybatis-config.yml", factory = YamlPropertySourceFactory.class)
 @MapperScan(basePackages = {"com.springboot.trade.mapper"})
 public class MybatisPlusConfig {
 
@@ -36,6 +39,7 @@ public class MybatisPlusConfig {
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         //paginationInterceptor.setLocalPage(true);// 开启 PageHelper 的支持
+//        paginationInterceptor.setDialectType("mysql");
         return paginationInterceptor;
     }
 
@@ -46,9 +50,9 @@ public class MybatisPlusConfig {
     }
 
     @Bean("sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource());
+        sqlSessionFactory.setDataSource(dataSource);
         sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
 
         MybatisConfiguration configuration = new MybatisConfiguration();
@@ -74,8 +78,8 @@ public class MybatisPlusConfig {
      * @return
      */
     @Bean(name = "transactionManager")
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
 }
