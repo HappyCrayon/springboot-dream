@@ -20,5 +20,4 @@ springboot实践之路
 1.Springboot中发布WebService接口
 
 2019.12.26  
-1.自定义yaml文件加载器(YamlPropertySourceFactory)，有助于  
-将MybatisPlus配置独立划分为db模块(多微服务共用)
+1.自定义yaml文件加载器(YamlPropertySourceFactory)，有助于将MybatisPlus配置独立划分为db模块(多微服务共用)
