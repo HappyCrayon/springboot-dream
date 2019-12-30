@@ -1,8 +1,8 @@
 package com.springboot.common.exception;
 
 
-import com.springboot.common.error.BusinessErrorCode;
-import com.springboot.common.error.CommonErrorCode;
+import com.springboot.common.error.BusinessErrorEnum;
+import com.springboot.common.error.CommonErrorEnum;
 
 
 /**
@@ -16,21 +16,21 @@ public class BusinessException extends RuntimeException {
     private String code;
 
     /**
-     * 使用枚举传参
+     * 使用BusinessError枚举传参
      *
      * @param errorCode 异常枚举
      */
-    public BusinessException(BusinessErrorCode errorCode) {
+    public BusinessException(BusinessErrorEnum errorCode) {
         super(errorCode.getMessage());
         this.code = errorCode.getCode();
     }
 
     /**
-     * 使用CommonErrorCode枚举传参
+     * 使用CommonError枚举传参
      *
      * @param errorCode 异常枚举
      */
-    public BusinessException(CommonErrorCode errorCode) {
+    public BusinessException(CommonErrorEnum errorCode) {
         super(errorCode.getMessage());
         this.code = errorCode.getCode();
     }

@@ -17,12 +17,14 @@ public class ApproveFlowInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		logger.info("====preHandle");
-		System.out.println("我是拦截器，拦截的uri:" + request.getRequestURI());
+		if (request instanceof  WrappedHttpServletRequest) {
+			logger.info("====preHandle");
+			System.out.println("我是拦截器，拦截的uri:" + request.getRequestURI());
 
-		WrappedHttpServletRequest requestWrapper = (WrappedHttpServletRequest) request;
-		String params = requestWrapper.getRequestParams();
-		logger.info("拦截的请求参数:params:[{}]", params);
+			WrappedHttpServletRequest requestWrapper = (WrappedHttpServletRequest) request;
+			String params = requestWrapper.getRequestParams();
+			logger.info("拦截的请求参数:params:[{}]", params);
+		}
 		return true;
 	}
 

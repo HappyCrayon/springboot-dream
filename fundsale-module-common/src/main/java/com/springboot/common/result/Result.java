@@ -3,7 +3,7 @@ package com.springboot.common.result;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.springboot.common.error.CommonErrorCode;
+import com.springboot.common.error.CommonErrorEnum;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -58,31 +58,31 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
-    private static <T> Result<T> build(CommonErrorCode commonErrorCode, T data) {
+    private static <T> Result<T> build(CommonErrorEnum commonErrorEnum, T data) {
         Result<T> result = new Result<T>();
-        result.setCode(commonErrorCode.getCode());
-        result.setMsg(commonErrorCode.getMessage());
+        result.setCode(commonErrorEnum.getCode());
+        result.setMsg(commonErrorEnum.getMessage());
         result.setData(data);
         return result;
     }
 
     public static <T> Result<T> success() {
-        return build(CommonErrorCode.SUCCESS, null);
+        return build(CommonErrorEnum.SUCCESS, null);
     }
 
     public static <T> Result<T> success(T data) {
-        return build(CommonErrorCode.SUCCESS, data);
+        return build(CommonErrorEnum.SUCCESS, data);
     }
 
-    public static Result fail(String code, String msg) {
+    public static Result error(String code, String msg) {
         Result result = new Result();
         result.setCode(code);
         result.setMsg(msg);
         return result;
     }
 
-    public static Result fail(CommonErrorCode commonErrorCode) {
-        return build(commonErrorCode, null);
+    public static Result error(CommonErrorEnum commonErrorEnum) {
+        return build(commonErrorEnum, null);
     }
 
     /**

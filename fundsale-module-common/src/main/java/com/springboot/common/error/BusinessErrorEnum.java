@@ -7,7 +7,7 @@ package com.springboot.common.error;
  * @author purgeyao
  * @since 1.0
  */
-public enum BusinessErrorCode implements ResultCode {
+public enum BusinessErrorEnum implements ResultCode {
 
     /**
      * 通用业务异常
@@ -19,7 +19,7 @@ public enum BusinessErrorCode implements ResultCode {
 
     private String message;
 
-    BusinessErrorCode(String code, String message) {
+    BusinessErrorEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }

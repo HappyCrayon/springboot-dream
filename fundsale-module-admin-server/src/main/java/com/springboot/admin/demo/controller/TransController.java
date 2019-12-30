@@ -19,7 +19,7 @@ public class TransController {
         return transService.doProcess(request);
     }
 
-    @GetMapping("/doCustSign")
+    @GetMapping("/doOpenAccount")
     public String doOpenAccount(OpenAccountRequest request) {
         TransService<OpenAccountRequest> transService = new OpenAccountBusiness();
         return transService.doProcess(request);
