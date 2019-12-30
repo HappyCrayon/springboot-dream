@@ -40,10 +40,9 @@ public class EmployeeController {
     @PostMapping("/queryEmployeePage")
     @ApiOperation(value = "分页查询职员", notes = "分页查询职员")
     public Page<Employee> queryEmployeePage(@RequestBody EmployeeDTO employeeDTO) {
-        throw new RuntimeException("sdfas");
-//        Page<Employee> page = new Page<Employee>(1,10);
-//        Page<Employee> employeePage = employeeService.selectEmployeePage(page, employeeDTO);
-//        return employeePage;
+        Page<Employee> page = new Page<Employee>(1,10);
+        Page<Employee> employeePage = employeeService.selectEmployeePage(page, employeeDTO);
+        return employeePage;
     }
 
 }
