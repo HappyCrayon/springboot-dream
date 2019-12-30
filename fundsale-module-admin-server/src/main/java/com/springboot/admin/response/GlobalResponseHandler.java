@@ -1,7 +1,7 @@
 package com.springboot.admin.response;
 
 import com.alibaba.fastjson.JSON;
-import com.springboot.common.result.Result;
+import com.springboot.common.response.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

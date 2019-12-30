@@ -1,7 +1,7 @@
-package com.springboot.common.result;
+package com.springboot.common.response;
 
 import com.alibaba.fastjson.JSON;
-import com.springboot.common.error.CommonErrorEnum;
+import com.springboot.common.enums.ResultCode;
 
 import java.io.Serializable;
 
@@ -21,7 +21,7 @@ public class Result<T> implements Serializable {
     /**
      * 错误描述
      */
-    private String msg;
+    private String message;
 
     /**
      * 成功数据
@@ -39,12 +39,12 @@ public class Result<T> implements Serializable {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public T getData() {
@@ -57,28 +57,28 @@ public class Result<T> implements Serializable {
 
 
     public static <T> Result<T> success() {
-        return build(CommonErrorEnum.SUCCESS, null);
+        return build(ResultCode.SUCCESS, null);
     }
 
     public static <T> Result<T> success(T data) {
-        return build(CommonErrorEnum.SUCCESS, data);
+        return build(ResultCode.SUCCESS, data);
     }
 
     public static Result error(String code, String msg) {
         Result result = new Result();
         result.setCode(code);
-        result.setMsg(msg);
+        result.setMessage(msg);
         return result;
     }
 
-    public static Result error(CommonErrorEnum commonErrorEnum) {
-        return build(commonErrorEnum, null);
+    public static Result error(ResultCode resultCode) {
+        return build(resultCode, null);
     }
 
-    private static <T> Result<T> build(CommonErrorEnum commonErrorEnum, T data) {
+    private static <T> Result<T> build(ResultCode resultCode, T data) {
         Result<T> result = new Result<T>();
-        result.setCode(commonErrorEnum.getCode());
-        result.setMsg(commonErrorEnum.getMessage());
+        result.setCode(resultCode.getCode());
+        result.setMessage(resultCode.getMessage());
         result.setData(data);
         return result;
     }

@@ -1,4 +1,4 @@
-package com.springboot.common.error;
+package com.springboot.common.enums;
 
 import org.springframework.http.HttpStatus;
 
@@ -8,13 +8,16 @@ import org.springframework.http.HttpStatus;
  * @author purgeyao
  * @since 1.0
  */
-public enum CommonErrorEnum implements ResultCode {
+public enum ResultCode {
 
     SUCCESS("000000", "操作成功"),
 
-    SYSTEM_ERROR("-001","系统异常"),
+    SYSTEM_ERROR("500","系统异常"),
 
     BAD_REQUEST("400","错误的请求参数"),
+
+    /* 参数错误：10001-19999 */
+    PARAM_IS_INVALID("10001", "参数无效"),
 
     /**
      * 404 Web 服务器找不到您所请求的文件或脚本。请检查URL 以确保路径正确。
@@ -65,7 +68,7 @@ public enum CommonErrorEnum implements ResultCode {
 
     private String message;
 
-    CommonErrorEnum(String code, String message) {
+    ResultCode(String code, String message) {
         this.code = code;
         this.message = message;
     }
