@@ -28,7 +28,33 @@ public class Result<T> implements Serializable {
      */
     private T data;
 
-    private Result() {
+    private Result() {}
+
+    public static <T> Result<T> success() {
+        return build(ResultCode.SUCCESS, null);
+    }
+
+    public static <T> Result<T> success(T data) {
+        return build(ResultCode.SUCCESS, data);
+    }
+
+    public static Result fail(String code, String msg) {
+        Result result = new Result();
+        result.setCode(code);
+        result.setMessage(msg);
+        return result;
+    }
+
+    public static Result fail(ResultCode resultCode) {
+        return build(resultCode, null);
+    }
+
+    private static <T> Result<T> build(ResultCode resultCode, T data) {
+        Result<T> result = new Result<T>();
+        result.setCode(resultCode.getCode());
+        result.setMessage(resultCode.getMessage());
+        result.setData(data);
+        return result;
     }
 
     public String getCode() {
@@ -53,34 +79,6 @@ public class Result<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-
-    public static <T> Result<T> success() {
-        return build(ResultCode.SUCCESS, null);
-    }
-
-    public static <T> Result<T> success(T data) {
-        return build(ResultCode.SUCCESS, data);
-    }
-
-    public static Result error(String code, String msg) {
-        Result result = new Result();
-        result.setCode(code);
-        result.setMessage(msg);
-        return result;
-    }
-
-    public static Result error(ResultCode resultCode) {
-        return build(resultCode, null);
-    }
-
-    private static <T> Result<T> build(ResultCode resultCode, T data) {
-        Result<T> result = new Result<T>();
-        result.setCode(resultCode.getCode());
-        result.setMessage(resultCode.getMessage());
-        result.setData(data);
-        return result;
     }
 
     @Override

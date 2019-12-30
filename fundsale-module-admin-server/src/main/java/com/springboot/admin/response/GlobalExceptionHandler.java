@@ -22,13 +22,13 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     private Result build(HttpStatus httpStatus) {
-        return Result.error(String.valueOf(httpStatus.value()), httpStatus.getReasonPhrase());
+        return Result.fail(String.valueOf(httpStatus.value()), httpStatus.getReasonPhrase());
     }
 
 //    @ExceptionHandler
 //    public ResultBean unknownAccount(UnknownAccountException e) {
-//        log.error("账号不存在", e);
-//        return ResultBean.error(1, "账号不存在");
+//        log.fail("账号不存在", e);
+//        return ResultBean.fail(1, "账号不存在");
 //    }
 
     //    /**
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
 //    @ResponseBody
 //    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 //    public Result badRequest(BindException e) {
-//        log.error("BAD_REQUEST {}", e.getMessage());
+//        log.fail("BAD_REQUEST {}", e.getMessage());
 //        return build(HttpStatus.BAD_REQUEST);
 //    }
 //
@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
 //    @ResponseBody
 //    @ResponseStatus(value = HttpStatus.NOT_FOUND)
 //    public Result badRequestNotFound(BindException e) {
-//        log.error("NOT_FOUND {}", e.getMessage());
+//        log.fail("NOT_FOUND {}", e.getMessage());
 //        return build(HttpStatus.NOT_FOUND);
 //    }
 //
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
 //    @ResponseBody
 //    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 //    public Result mybatis(Exception e) {
-//        log.error("occurs error when execute method ,message {}", e.getMessage());
+//        log.fail("occurs fail when execute method ,message {}", e.getMessage());
 //        return build(HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
 //
@@ -83,13 +83,13 @@ public class GlobalExceptionHandler {
 //    @ResponseBody
 //    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 //    public Result databaseError(Exception e) {
-//        log.error("database error", e);
+//        log.fail("database fail", e);
 //        return build(HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
 
 //    @ExceptionHandler
 //    public Result unknownException(HttpServletRequest request, HttpServletResponse response, final Exception e) {
-//        log.error("系统异常->URL:[{}]", request.getRequestURL(), e);
+//        log.fail("系统异常->URL:[{}]", request.getRequestURL(), e);
 //        return build(HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
 
@@ -109,7 +109,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BusinessException.class)
     public Result businessException(HttpServletRequest request, HttpServletResponse response, BusinessException e) {
-        Result error = Result.error(e.getCode(), e.getMessage());
+        Result error = Result.fail(e.getCode(), e.getMessage());
         log.error("业务异常->URL:[{}][{}]", request.getRequestURL(), error);
         return error;
     }
@@ -122,7 +122,7 @@ public class GlobalExceptionHandler {
     public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
         String msgs = this.handle(e.getBindingResult().getFieldErrors());
         log.error("参数校验异常->URL:[{}][{}]", request.getRequestURI(), msgs);
-        return Result.error(ResultCode.PARAM_IS_INVALID);
+        return Result.fail(ResultCode.PARAM_IS_INVALID);
     }
 
     private String handle(List<FieldError> fieldErrors) {
@@ -141,11 +141,11 @@ public class GlobalExceptionHandler {
 //     */
 //    @ExceptionHandler(IllegalArgumentException.class)
 //    public ErrorResult illegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
-//        ErrorResult error = ErrorResult.builder().status(4000)
+//        ErrorResult fail = ErrorResult.builder().status(4000)
 //                .message(e.getMessage())
 //                .exceptions(e.getClass().getName())
 //                .build();
 //        log.warn("URL:{} ,业务校验异常:{}", request.getRequestURI(), e);
-//        return error;
+//        return fail;
 //    }
 }
