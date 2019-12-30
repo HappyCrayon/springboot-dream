@@ -85,15 +85,13 @@ public class GlobalExceptionHandler {
 //
     @ExceptionHandler
     public Result businessException(HttpServletRequest request, HttpServletResponse response, BusinessException e) {
-        log.error("===调用[{}]", request.getRequestURL());
-        log.error("GlobalExceptionHandler业务异常", e);
+        log.error("URL:[{}]，业务异常", request.getRequestURL(), e);
         return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler
     public Result unknownException(HttpServletRequest request, HttpServletResponse response, final Exception e) {
-        log.error("===调用[{}]", request.getRequestURL());
-        log.error("GlobalExceptionHandler未知异常", e);
+        log.error("URL:[{}]，系统异常", request.getRequestURL(), e);
         return build(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
