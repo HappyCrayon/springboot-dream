@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RestControllerAdvice(basePackages = "com.springboot.admin.controller")
+@RestControllerAdvice//(basePackages = "com.springboot.admin.controller")
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
@@ -85,13 +85,13 @@ public class GlobalExceptionHandler {
 //
     @ExceptionHandler
     public Result businessException(HttpServletRequest request, HttpServletResponse response, BusinessException e) {
-        log.error("URL:[{}]，业务异常", request.getRequestURL(), e);
+        log.error("业务异常->URL:[{}]", request.getRequestURL(), e);
         return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler
     public Result unknownException(HttpServletRequest request, HttpServletResponse response, final Exception e) {
-        log.error("URL:[{}]，系统异常", request.getRequestURL(), e);
+        log.error("系统异常->URL:[{}]", request.getRequestURL(), e);
         return build(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
