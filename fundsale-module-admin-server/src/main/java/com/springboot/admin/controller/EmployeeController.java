@@ -1,7 +1,6 @@
 package com.springboot.admin.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.admin.service.EmployeeService;
 import com.springboot.api.dto.EmployeeDTO;
@@ -40,10 +39,10 @@ public class EmployeeController {
 
     @PostMapping("/queryEmployeePage")
     @ApiOperation(value = "分页查询职员", notes = "分页查询职员")
-    public String queryEmployeePage(@RequestBody EmployeeDTO employeeDTO) {
+    public Page<Employee> queryEmployeePage(@RequestBody EmployeeDTO employeeDTO) {
         Page<Employee> page = new Page<Employee>(1,10);
         Page<Employee> employeePage = employeeService.selectEmployeePage(page, employeeDTO);
-        return JSON.toJSONString(employeePage, true);
+        return employeePage;
     }
 
 }

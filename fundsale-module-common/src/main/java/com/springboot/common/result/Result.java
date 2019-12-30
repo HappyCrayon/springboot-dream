@@ -1,10 +1,7 @@
 package com.springboot.common.result;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.springboot.common.error.CommonErrorEnum;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
@@ -58,13 +55,6 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
-    private static <T> Result<T> build(CommonErrorEnum commonErrorEnum, T data) {
-        Result<T> result = new Result<T>();
-        result.setCode(commonErrorEnum.getCode());
-        result.setMsg(commonErrorEnum.getMessage());
-        result.setData(data);
-        return result;
-    }
 
     public static <T> Result<T> success() {
         return build(CommonErrorEnum.SUCCESS, null);
@@ -85,23 +75,16 @@ public class Result<T> implements Serializable {
         return build(commonErrorEnum, null);
     }
 
-    /**
-     * 获取 json
-     */
-    public String toJSONString() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", this.code);
-        jsonObject.put("msg", this.msg);
-        jsonObject.put("data", this.data);
-        return JSON.toJSONString(jsonObject, SerializerFeature.DisableCircularReferenceDetect);
+    private static <T> Result<T> build(CommonErrorEnum commonErrorEnum, T data) {
+        Result<T> result = new Result<T>();
+        result.setCode(commonErrorEnum.getCode());
+        result.setMsg(commonErrorEnum.getMessage());
+        result.setData(data);
+        return result;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("code", code)
-                .append("msg", msg)
-                .append("data", data)
-                .toString();
+        return JSON.toJSONString(this);
     }
 }

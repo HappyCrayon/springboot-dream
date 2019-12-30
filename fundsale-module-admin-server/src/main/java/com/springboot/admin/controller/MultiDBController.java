@@ -1,6 +1,5 @@
 package com.springboot.admin.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.springboot.admin.mapper.DepartmentMapper;
 import com.springboot.admin.mapper.ProductMapper;
@@ -31,7 +30,7 @@ public class MultiDBController {
 
     @ApiOperation(value = "查询部门和产品", notes = "查询部门和产品")
     @RequestMapping(path="/queryDeptAndProd", method = RequestMethod.GET)
-    public String queryDeptAndProd() {
+    public Map<String, Object> queryDeptAndProd() {
         Map<String, Object> resultMap = Maps.newHashMap();
 
         DbContextHolder.setDbType(DBTypeEnum.db1);
@@ -43,13 +42,13 @@ public class MultiDBController {
         resultMap.put("products", products);
 
 
-        return JSON.toJSONString(resultMap);
+        return resultMap;
     }
 
     @ApiOperation(value = "使用MybatisPlus查询部门", notes = "使用MybatisPlus查询部门")
     @RequestMapping(path="/queryDeptByMybatisPlus", method = RequestMethod.GET)
-    public String testMyBatisPlus() {
-        return JSON.toJSONString(departmentMapper.selectList(null));
+    public List<Department> testMyBatisPlus() {
+        return departmentMapper.selectList(null);
     }
 
 }
