@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 //basePackages如果不加的话，它可是对整个系统的Controller做了扩展功能，它会对某些特殊功能产生冲突，例如 不加的话，在使用swagger时会出现空白页异常。
 @ControllerAdvice(basePackages = "com.springboot.admin.controller")
-public class ResponseHandler implements ResponseBodyAdvice<Object> {
+public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
     /**
      * 是否支持advice功能
