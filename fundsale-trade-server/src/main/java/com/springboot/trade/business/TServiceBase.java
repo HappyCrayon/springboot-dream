@@ -1,7 +1,8 @@
-package com.springboot.admin.demo.service;
+package com.springboot.trade.business;
 
-import com.springboot.admin.demo.entity.TRequest;
-import com.springboot.admin.demo.facade.TransService;
+
+import com.springboot.trade.entity.TRequest;
+import com.springboot.trade.service.TransService;
 
 public abstract class TServiceBase<REQ extends TRequest> implements TransService<REQ> {
 

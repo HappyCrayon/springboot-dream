@@ -1,4 +1,4 @@
-package com.springboot.admin.demo.entity;
+package com.springboot.trade.entity;
 
 /**
  * 交易实体基础类

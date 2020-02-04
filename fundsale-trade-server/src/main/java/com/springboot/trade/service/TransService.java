@@ -1,6 +1,6 @@
-package com.springboot.admin.demo.facade;
+package com.springboot.trade.service;
 
-import com.springboot.admin.demo.entity.TRequest;
+import com.springboot.trade.entity.TRequest;
 
 /**
  * 交易接口

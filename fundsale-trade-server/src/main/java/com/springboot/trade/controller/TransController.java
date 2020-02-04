@@ -1,10 +1,11 @@
-package com.springboot.admin.demo.controller;
+package com.springboot.trade.controller;
 
-import com.springboot.admin.demo.business.CustSignBusiness;
-import com.springboot.admin.demo.business.OpenAccountBusiness;
-import com.springboot.admin.demo.entity.OpenAccountRequest;
-import com.springboot.admin.demo.entity.SignRequest;
-import com.springboot.admin.demo.facade.TransService;
+
+import com.springboot.trade.business.CustSignBusiness;
+import com.springboot.trade.business.OpenAccountBusiness;
+import com.springboot.trade.entity.OpenAccountRequest;
+import com.springboot.trade.entity.SignRequest;
+import com.springboot.trade.service.TransService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

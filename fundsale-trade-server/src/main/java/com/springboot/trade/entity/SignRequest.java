@@ -1,4 +1,4 @@
-package com.springboot.admin.demo.entity;
+package com.springboot.trade.entity;
 
 /**
  * 签约参数Entity

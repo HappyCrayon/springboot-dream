@@ -1,8 +1,8 @@
-package com.springboot.admin.demo.business;
+package com.springboot.trade.business;
 
 import com.alibaba.fastjson.JSON;
-import com.springboot.admin.demo.entity.OpenAccountRequest;
-import com.springboot.admin.demo.service.TServiceBase;
+import com.springboot.trade.entity.OpenAccountRequest;
+
 
 public class OpenAccountBusiness extends TServiceBase<OpenAccountRequest> {
 
