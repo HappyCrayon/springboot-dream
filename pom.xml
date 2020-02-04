@@ -16,14 +16,14 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>fundsale-module-common</module>
-        <module>fundsale-module-api</module>
-        <module>fundsale-module-admin-server</module>
-        <module>fundsale-module-product-server</module>
-        <module>fundsale-module-trade-server</module>
-        <module>fundsale-module-clear-server</module>
-        <module>fundsale-module-channel-server</module>
-        <module>fundsale-module-eureka-server</module>
+        <module>fundsale-common</module>
+        <module>fundsale-api</module>
+        <module>fundsale-admin-server</module>
+        <module>fundsale-product-server</module>
+        <module>fundsale-trade-server</module>
+        <module>fundsale-clear-server</module>
+        <module>fundsale-channel-server</module>
+        <module>fundsale-eureka-server</module>
     </modules>
 
     <name>springboot-dream</name>

@@ -9,19 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fundsale-module-common</artifactId>
-
-    <name>fundsale-module-common</name>
-    <!-- FIXME change it to the project's website -->
+    <artifactId>fundsale-channel-server</artifactId>
+    <name>fundsale-channel-server</name>
     <url>http://www.example.com</url>
 
+
     <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
+
     </build>
 </project>

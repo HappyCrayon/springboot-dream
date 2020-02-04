@@ -9,40 +9,38 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fundsale-module-product-server</artifactId>
-
-    <name>fundsale-module-product-server</name>
+    <artifactId>fundsale-trade-server</artifactId>
+    <name>fundsale-trade-server</name>
     <url>http://www.example.com</url>
 
 
     <dependencies>
         <dependency>
             <groupId>com.springboot</groupId>
-            <artifactId>fundsale-module-api</artifactId>
+            <artifactId>fundsale-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.springboot</groupId>
-            <artifactId>fundsale-module-common</artifactId>
+            <artifactId>fundsale-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-            <version>3.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>stax2-api</artifactId>
-            <version>4.0.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatisplus-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>

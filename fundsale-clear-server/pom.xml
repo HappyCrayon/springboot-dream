@@ -9,18 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fundsale-module-eureka-server</artifactId>
-
-    <name>fundsale-module-eureka-server</name>
+    <artifactId>fundsale-clear-server</artifactId>
+    <name>fundsale-clear-server</name>
     <url>http://www.example.com</url>
-    <description>服务注册中心</description>
+
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>

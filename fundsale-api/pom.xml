@@ -9,12 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fundsale-module-clear-server</artifactId>
-
-    <name>fundsale-module-clear-server</name>
-    <!-- FIXME change it to the project's website -->
+    <artifactId>fundsale-api</artifactId>
+    <name>fundsale-api</name>
     <url>http://www.example.com</url>
-
 
 
     <dependencies>
