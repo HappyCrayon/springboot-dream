@@ -10,7 +10,6 @@ spring:
         username: root
         password: root
         driver-class-name: com.mysql.cj.jdbc.Driver
-
         # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
         initialSize: 5
         # 最小连接池数量
@@ -41,7 +40,6 @@ spring:
         username: root
         password: root
         driver-class-name: com.mysql.cj.jdbc.Driver
-
         # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
         initialSize: 6
         # 最小连接池数量
