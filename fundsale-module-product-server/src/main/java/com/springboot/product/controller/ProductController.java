@@ -17,6 +17,7 @@ public class ProductController implements ProductApi {
     @Override
     @RequestMapping(path = "/invoke_product/{name}", method = RequestMethod.GET)
     public String invokeProdHello(@PathVariable String name) {
+//        throw new BusinessException("hahaha", "我错了");
         return "hi " + name + " ,i am from product port:" + port;
     }
 }
