@@ -11,7 +11,7 @@
 
     <artifactId>fundsale-api</artifactId>
     <name>fundsale-api</name>
-    <url>http://www.example.com</url>
+    <description>接口模块</description>
 
 
     <dependencies>

@@ -11,9 +11,7 @@
 
     <artifactId>fundsale-clear-server</artifactId>
     <name>fundsale-clear-server</name>
-    <url>http://www.example.com</url>
-
-
+    <description>清算服务</description>
 
     <dependencies>
 

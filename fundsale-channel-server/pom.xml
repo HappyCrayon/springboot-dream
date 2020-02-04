@@ -11,7 +11,7 @@
 
     <artifactId>fundsale-channel-server</artifactId>
     <name>fundsale-channel-server</name>
-    <url>http://www.example.com</url>
+    <description>渠道服务</description>
 
 
     <dependencies>

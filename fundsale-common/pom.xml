@@ -11,7 +11,7 @@
 
     <artifactId>fundsale-common</artifactId>
     <name>fundsale-common</name>
-    <url>http://www.example.com</url>
+    <description>公共模块</description>
 
     <dependencies>
         <dependency>

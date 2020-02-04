@@ -11,8 +11,7 @@
 
     <artifactId>fundsale-admin-server</artifactId>
     <name>fundsale-admin-server</name>
-    <url>http://www.example.com</url>
-
+    <description>管理台服务</description>
 
     <dependencies>
         <dependency>
