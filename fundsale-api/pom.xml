@@ -15,7 +15,10 @@
 
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.springboot</groupId>
+            <artifactId>fundsale-common</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

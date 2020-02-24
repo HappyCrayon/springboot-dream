@@ -1,4 +1,4 @@
-package com.springboot.admin.response;
+package com.springboot.product.response;
 
 import com.springboot.common.exceptions.ApiException;
 import com.springboot.common.exceptions.InternalApiException;

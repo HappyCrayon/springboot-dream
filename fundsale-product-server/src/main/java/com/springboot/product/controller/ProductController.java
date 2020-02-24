@@ -1,6 +1,7 @@
 package com.springboot.product.controller;
 
 import com.springboot.api.facade.ProductApi;
+import com.springboot.common.exceptions.InternalApiException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,9 @@ public class ProductController implements ProductApi {
 
     @Override
     @RequestMapping(path = "/invoke_product/{name}", method = RequestMethod.GET)
-    public String invokeProdHello(@PathVariable String name) {
+    public String invokeProdHello(@PathVariable String name) throws InternalApiException {
 //        throw new BusinessException("hahaha", "我错了");
-        return "hi " + name + " ,i am from product port:" + port;
+        throw new InternalApiException("hahaha", "我错了");
+//        return "hi " + name + " ,i am from product port:" + port;
     }
 }
