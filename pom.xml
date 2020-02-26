@@ -36,7 +36,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.version>1.0-SNAPSHOT</project.version>
         <swagger-version>2.5.0</swagger-version>
-        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <mybatisplus.version>3.0.6</mybatisplus.version>
         <druid.version>1.1.10</druid.version>
         <guava.version>23.0</guava.version>
@@ -99,7 +98,7 @@
         <!--mybatis-plus依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
 
@@ -144,8 +143,8 @@
         <dependencies>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>${mybatisplus-spring-boot-starter.version}</version>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.version}</version>
             </dependency>
 
             <dependency>

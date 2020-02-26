@@ -1,23 +1,12 @@
 package com.springboot.trade.configuration;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.springboot.common.factory.YamlPropertySourceFactory;
-import org.apache.ibatis.logging.stdout.StdOutImpl;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionTemplate;
+import com.springboot.common.reflection.wrapper.CustomMapWrapperFactory;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.sql.DataSource;
 
 /**
  * @Author DGD
@@ -25,7 +14,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = "classpath:mybatis-config.yml", factory = YamlPropertySourceFactory.class)
+//@PropertySource(value = "classpath:mybatis-config.yml", factory = YamlPropertySourceFactory.class)
 @MapperScan(basePackages = {"com.springboot.trade.mapper"})
 public class MybatisPlusConfig {
 
@@ -43,43 +32,54 @@ public class MybatisPlusConfig {
         return paginationInterceptor;
     }
 
-    @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource dataSource() {
-        return new DruidDataSource();
-    }
+//    @Bean(name = "dataSource")
+//    @ConfigurationProperties(prefix = "spring.datasource")
+//    public DataSource dataSource() {
+//        return new DruidDataSource();
+//    }
 
-    @Bean("sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource);
-        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
+//    @Bean("sqlSessionFactory")
+//    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//        MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
+//        sqlSessionFactory.setDataSource(dataSource);
+//        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
+//
+//        MybatisConfiguration configuration = new MybatisConfiguration();
+//        configuration.setMapUnderscoreToCamelCase(true);
+//        configuration.setLogImpl(StdOutImpl.class);
+//        sqlSessionFactory.setConfiguration(configuration);
+//
+//        return sqlSessionFactory.getObject();
+//    }
+//
+//    /***
+//     * SqlSessionTemplate与Spring事务管理一起使用，以确保使用的实际SqlSession是与当前Spring事务关联的,
+//     * 此外它还管理会话生命周期，包括根据Spring事务配置根据需要关闭，提交或回滚会话
+//     */
+//    @Bean
+//    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+//        return new SqlSessionTemplate(sqlSessionFactory);
+//    }
+//
+//    /**
+//     * 事物管理器
+//     *
+//     * @return
+//     */
+//    @Bean(name = "transactionManager")
+//    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
 
-        MybatisConfiguration configuration = new MybatisConfiguration();
-        configuration.setMapUnderscoreToCamelCase(true);
-        configuration.setLogImpl(StdOutImpl.class);
-        sqlSessionFactory.setConfiguration(configuration);
-
-        return sqlSessionFactory.getObject();
-    }
-
-    /***
-     * SqlSessionTemplate与Spring事务管理一起使用，以确保使用的实际SqlSession是与当前Spring事务关联的,
-     * 此外它还管理会话生命周期，包括根据Spring事务配置根据需要关闭，提交或回滚会话
-     */
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
-    }
-
-    /**
-     * 事物管理器
-     *
-     * @return
-     */
-    @Bean(name = "transactionManager")
-    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
+    public ConfigurationCustomizer configurationCustomizer() {
+//        return new ConfigurationCustomizer() {
+//            @Override
+//            public void customize(org.apache.ibatis.session.Configuration configuration) {
+//                configuration.setObjectWrapperFactory(new CustomMapWrapperFactory());
+//            }
+//        };
+        return i -> i.setObjectWrapperFactory(new CustomMapWrapperFactory());
     }
 
 }
