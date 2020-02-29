@@ -2,6 +2,8 @@ package com.springboot.trade.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.springboot.common.util.GenericsUtils;
+import com.springboot.common.util.Objects;
 import com.springboot.common.util.SQLUtil;
 import com.springboot.trade.entity.T6CustInfo;
 import com.springboot.trade.mapper.T6CustInfoMapper;
@@ -12,6 +14,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +54,8 @@ public class T6CustInfoController {
     @PostMapping("/queryCustList1")
     @ApiOperation(value = "查询客户列表1", notes = "查询客户列表1")
     public List<T6CustInfo> queryCustList1(@RequestBody JSONObject request) {
+        Class clazz = GenericsUtils.getSuperClassGenricType(Objects.getTargetClass(custInfoService));
+        System.out.println(clazz.getName());
         return custInfoService.list();
     }
 
@@ -63,9 +68,14 @@ public class T6CustInfoController {
     @PostMapping("/comnSelect")
     @ApiOperation(value = "comnSelect", notes = "comnSelect")
     public String comnSelect(@RequestBody JSONObject request) {
-        String sql = "SELECT CUST_NO, cust_name, ID_TYPE, ID_CODE, CREATE_DATE, CREATE_TIME FROM t6_cust_info";
-        List<Map> resultList = sqlUtil.selectList(sql, request);
-        return JSON.toJSONString(resultList);
+        String sql = "SELECT CUST_NO1, cust_name, ID_TYPE, ID_CODE, CREATE_DATE, CREATE_TIME FROM t6_cust_info";
+        try {
+            List<Map> resultList = sqlUtil.selectList(sql, request);
+            return JSON.toJSONString(resultList);
+        } catch (DataAccessException e) {
+            log.error("数据库异常", e);
+            return null;
+        }
     }
 
     @PostMapping("/selectEntity")

@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface T6CustInfoService extends IService<T6CustInfo> {
 
+    public void xxx();
+
 }
