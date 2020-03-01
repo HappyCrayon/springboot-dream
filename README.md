@@ -26,5 +26,5 @@ springboot实践之路
 1.admin-server模块:统一返回格式以及全局异常封装(GlobalResponseHandler与GlobalExceptionHandler)
 
 2020.03.01
-1.替换eureka使用conusl注册中心(TODO)
-2.使用apollo作为配置中心(TODO)
+1.替换Eureka使用Consul注册中心(TODO)
+2.使用Apollo作为配置中心(TODO)
