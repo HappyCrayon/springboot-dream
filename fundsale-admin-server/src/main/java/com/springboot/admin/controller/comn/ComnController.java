@@ -3,6 +3,7 @@ package com.springboot.admin.controller.comn;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.springboot.api.facade.comn.ComnServiceApi;
+import com.springboot.common.util.MessageUtils;
 import com.springboot.common.util.ResponseUtil;
 import feign.Feign;
 import feign.gson.GsonEncoder;
@@ -25,6 +26,8 @@ public class ComnController {
     @ApiOperation(value = "通用服务", notes = "通用服务")
     @PostMapping(path="/callService")
     public String invokeProductHello(@RequestBody JSONObject request) {
+        System.out.println("==========");
+        System.out.println(MessageUtils.getMessage("user.welcome"));
         String serviceName = request.getString("serviceName");
         if (Strings.isNullOrEmpty(serviceName)) {
             return ResponseUtil.buildFailureRes("COMN-00001", "serviceName is empty!");

@@ -163,7 +163,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public APIResponse processDefaultException(HttpServletResponse response, Exception e) {
-        //log.error("Server exception", e);
+        log.error("Server exception", e);
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=UTF-8");
         APIResponse result = new APIResponse();
