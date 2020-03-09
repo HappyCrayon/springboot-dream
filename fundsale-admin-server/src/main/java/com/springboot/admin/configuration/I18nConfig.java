@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.Locale;
@@ -22,6 +24,7 @@ public class I18nConfig {
 
     /**
      * 区域解析器
+     *
      * @return
      */
     @Bean
@@ -41,5 +44,15 @@ public class I18nConfig {
         // 设置请求地址的参数,默认为 LocaleChangeInterceptor.DEFAULT_PARAM_NAME -> locale
         localeChangeInterceptor.setParamName(LOCAL_HEAD_NAME);
         return localeChangeInterceptor;
+    }
+
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer1(LocaleChangeInterceptor localeChangeInterceptor) {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                registry.addInterceptor(localeChangeInterceptor).order(-10);
+            }
+        };
     }
 }

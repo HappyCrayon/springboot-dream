@@ -19,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		//审批流拦截器
 		registry.addInterceptor(new ApproveFlowInterceptor()).addPathPatterns("/**");
 
-		registry.addInterceptor(localeChangeInterceptor);
+//		registry.addInterceptor(localeChangeInterceptor);
 	}
 	
 //	@Override
