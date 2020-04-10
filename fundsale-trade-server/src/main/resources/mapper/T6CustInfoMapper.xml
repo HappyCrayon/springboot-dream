@@ -17,4 +17,8 @@
         insert into t6_cust_info(cust_no, cust_name, id_type, id_code, create_date, create_time)
         values (#{custNo}, #{custName}, #{idType}, #{idCode}, #{createDate}, #{createTime})
     </insert>
+
+    <delete id="deleteCustInfo">
+        delete from t6_cust_info where cust_no = #{cust_no}
+    </delete>
 </mapper>

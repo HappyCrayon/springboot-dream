@@ -93,5 +93,12 @@ public class T6CustInfoController {
         int result = sqlSessionTemplate.insert(statementId, t6CustInfo);
         return "yes";
     }
+
+    @PostMapping("/deleteCustInfo")
+    @ApiOperation(value = "deleteCustInfo", notes = "deleteCustInfo")
+    public int deleteCustInfo(@RequestBody JSONObject request) {
+        return custInfoMapper.deleteCustInfo("1");
+    }
+
 }
 

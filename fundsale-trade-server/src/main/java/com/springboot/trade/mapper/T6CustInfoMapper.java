@@ -2,6 +2,7 @@ package com.springboot.trade.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.trade.entity.T6CustInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
 public interface T6CustInfoMapper extends BaseMapper<T6CustInfo> {
 
     List<T6CustInfo> selectCustInfo();
+
+    int deleteCustInfo(@Param("cust_no") String custNo);
 }
