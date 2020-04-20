@@ -2,6 +2,7 @@ package com.springboot.trade.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Maps;
 import com.springboot.common.util.GenericsUtils;
 import com.springboot.common.util.Objects;
 import com.springboot.common.util.SQLUtil;
@@ -70,6 +71,9 @@ public class T6CustInfoController {
     public String comnSelect(@RequestBody JSONObject request) {
         String sql = "SELECT CUST_NO1, cust_name, ID_TYPE, ID_CODE, CREATE_DATE, CREATE_TIME FROM t6_cust_info";
         try {
+            Map sParams = Maps.newHashMap();
+            sParams.put("sql_content", "select 100 from dual where 1 <> 1");
+            sqlSessionTemplate.selectOne("com.springboot.common.mapper.ComnBaseMapper.comnSelect111", sParams);
             List<Map> resultList = sqlUtil.selectList(sql, request);
             return JSON.toJSONString(resultList);
         } catch (DataAccessException e) {

@@ -1,11 +1,15 @@
 package com.springboot.trade.plugins;
 
+import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
+import com.baomidou.mybatisplus.core.toolkit.SystemClock;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.ParameterMode;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
@@ -55,36 +59,43 @@ public class MybatisSqlPrintInterceptor implements Interceptor, Ordered {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        Object target = invocation.getTarget();
-        long startTime = System.currentTimeMillis();
+        // 计算执行 SQL 耗时
+        long start = SystemClock.now();
+        Object result = invocation.proceed();
         try {
-            return invocation.proceed();
-        } finally {
-            try {
-                if (isShowSql) {
-                    long endTime = System.currentTimeMillis();
-                    long sqlCost = endTime - startTime;
+            if (isShowSql) {
+                long sqlCost = SystemClock.now() - start;
 
-                    StatementHandler statementHandler = (StatementHandler)target;
-                    BoundSql boundSql = statementHandler.getBoundSql();
+                // 格式化 SQL 打印执行结果
+                Object target = PluginUtils.realTarget(invocation.getTarget());
+                StatementHandler statementHandler = (StatementHandler)target;
+                BoundSql boundSql = statementHandler.getBoundSql();
 
-                    if (configuration == null) {
-                        final DefaultParameterHandler parameterHandler =
-                            (DefaultParameterHandler)statementHandler.getParameterHandler();
-                        Field configurationField =
-                            ReflectionUtils.findField(parameterHandler.getClass(), "configuration");
-                        ReflectionUtils.makeAccessible(configurationField);
-                        this.configuration = (Configuration)configurationField.get(parameterHandler);
-                    }
-
-                    // 替换参数格式化Sql语句，去除换行符
-                    String sql = formatSql(boundSql, configuration);
-                    log.info("【Mybatis SQL】【 {} 】执行耗时={}ms", sql, sqlCost);
+                if (configuration == null) {
+                    final DefaultParameterHandler parameterHandler = (DefaultParameterHandler)statementHandler.getParameterHandler();
+                    Field configurationField = ReflectionUtils.findField(parameterHandler.getClass(), "configuration");
+                    ReflectionUtils.makeAccessible(configurationField);
+                    this.configuration = (Configuration)configurationField.get(parameterHandler);
                 }
-            } catch (Exception e) {
-                log.error("Mybatis Sql Print Interceptor Error!", e);
+
+                // 获取mapId
+                MetaObject metaObject = SystemMetaObject.forObject(target);
+                MappedStatement ms = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+
+                // 替换参数格式化Sql语句，去除换行符
+                String sql = formatSql(boundSql, configuration);
+                if (result instanceof List) {
+                    log.info("Total: {}", ((List)result).size());
+                } else {
+                    log.info("Updates: {}", result); //ms.getSqlCommandType().name()
+                }
+                log.info("【 {} 】", ms.getId());
+                log.info("【Mybatis SQL】【 {} 】执行耗时={}ms", sql, sqlCost);
             }
+        } catch (Exception e) {
+            log.error("Mybatis Sql Print Interceptor Error!", e);
         }
+        return result;
     }
 
     @Override

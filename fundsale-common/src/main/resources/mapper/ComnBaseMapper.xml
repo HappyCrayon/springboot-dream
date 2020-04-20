@@ -17,4 +17,8 @@
     <delete id="comnDelete">
         ${sql_content}
     </delete>
+
+    <select id="comnSelect111" resultType="java.lang.String">
+        select 111 from dual
+    </select>
 </mapper>
