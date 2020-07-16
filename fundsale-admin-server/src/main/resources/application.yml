@@ -6,7 +6,7 @@ spring:
     druid:
       # 数据库 1
       db1:
-        url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false
+        url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT&useSSL=false&allowMultiQueries=true
         username: root
         password: root
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,7 +36,7 @@ spring:
         remove-abandoned-timeout: 1800
       # 数据库 2
       db2:
-        url: jdbc:mysql://localhost:3306/fundsale?serverTimezone=GMT&useSSL=false
+        url: jdbc:mysql://localhost:3306/fundsale?serverTimezone=GMT&useSSL=false&allowMultiQueries=true
         username: root
         password: root
         driver-class-name: com.mysql.cj.jdbc.Driver

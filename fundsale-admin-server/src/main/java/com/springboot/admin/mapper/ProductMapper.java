@@ -3,8 +3,7 @@ package com.springboot.admin.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.api.entity.Product;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -13,15 +12,19 @@ import java.util.List;
 public interface ProductMapper extends BaseMapper<Product> {
 
     @Select("select * from product where prod_id=#{id}")
-    public Product getProdById(Integer id);
+    Product getProdById(Integer id);
 
     @Delete("delete from product where prod_id=#{id}")
-    public int deleteProdById(Integer id);
+    int deleteProdById(Integer id);
 
-    @Options(useGeneratedKeys = true, keyProperty = "prodId")
-    @Insert("insert into product(prod_name) values(#{prodName})")
-    public int insertProd(Product product);
+//    @Options(useGeneratedKeys = true, keyProperty = "prodId")
+//    @Insert("insert into product(prod_name) values(#{prodName})")
+//    int insertProd(Product product);
 
     @Select("select * from product")
-    public List<Product> selectAllProds();
+    List<Product> selectAllProds();
+
+    int insertProd(@Param("prod") Product product);
+
+    int insertProdFor(@Param("prodList") List<Product> prodList);
 }
