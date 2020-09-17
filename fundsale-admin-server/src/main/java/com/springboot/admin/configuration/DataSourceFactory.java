@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.springboot.common.datasource.CustomSqlSessionTemplate;
 import com.springboot.common.datasource.DBTypeEnum;
-import org.apache.ibatis.logging.stdout.StdOutImpl;
+import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
@@ -144,7 +144,8 @@ public class DataSourceFactory {
         MybatisConfiguration configuration = new MybatisConfiguration();
 //        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
-        configuration.setLogImpl(StdOutImpl.class);
+//        configuration.setLogImpl(StdOutImpl.class);
+        configuration.setLogImpl(Slf4jImpl.class);
         factoryBean.setConfiguration(configuration);
         /* *
          * 采用个如下方式配置属性的时候一定要保证已经进行数据源的配置(setDataSource)和数据源和MapperLocation配置(setMapperLocations)
