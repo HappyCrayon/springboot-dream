@@ -32,6 +32,7 @@ mybatis-plus:
   type-handlers-package: com.springboot.trade.typehandler
   configuration:
     call-setters-on-nulls: true
+    database-id: mysql
   #补充说下，MyBatis 所用日志的具体实现，未指定时将自动查找。SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
